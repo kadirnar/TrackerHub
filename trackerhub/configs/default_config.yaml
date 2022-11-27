@@ -1,8 +1,8 @@
 TRACKER_CONFIG:
     # The name of the tracker
-    TRACKER_TYPE: OC_SORT
+    TRACKER_TYPE: NORFAIR_TRACK
     # The path of the config file
-    CONFIG_PATH: trackerhub/configs/oc_sort.yaml
+    CONFIG_PATH: trackerhub/configs/norfair_track.yaml
  
 DETECTOR_CONFIG:
   # The threshold for the IOU score
@@ -12,13 +12,13 @@ DETECTOR_CONFIG:
   # The size of the image
   IMAGE_SIZE: 640
   # The path of the weight file
-  WEIGHT_PATH: yolov5s6.pt
+  WEIGHT_PATH: /home/kadir/Desktop/AI/open_source/data/weights/yolov5s6.pt
   # The device to run the detector
   DEVICE: cuda:0
 
 VIDEO_CONFIG:
   # The path of the input video
-  INPUT_PATH: 1.mp4
+  INPUT_PATH: /home/kadir/Desktop/AI/open_source/data/uav_videos/1.mp4
   # The path of the output video
   OUTPUT_PATH: Results
   # Show the video

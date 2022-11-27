@@ -3,7 +3,7 @@
   TrackerHub: Real-time Multi-Object Tracking Library 
 </h1>
 <h4>
-    <img width="500" alt="teaser" src="docs/video/video.gif">
+    <img width="500" alt="teaser" src="docs/video/demo.gif">
 </h4>
 </div>
 
@@ -12,8 +12,8 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
 
 | Model  | Description  |
 |---|---|
-| [ByteTrack](docs/ByteTracker.md)  |  ByteTrack: Multi-Object Tracking by Associating Every Detection Box  |
-| [OCSort](docs/OcSort.md)  |  Observation-Centric SORT on video Multi-Object Tracking. OC-SORT is simple, online and robust to occlusion/non-linear motion.  | 
+| [ByteTrack](docs/byte_track/ByteTracker.md)  |  ByteTrack: Multi-Object Tracking by Associating Every Detection Box  |
+| [OCSort](docs/oc_sort/OcSort.md)  |  Observation-Centric SORT on video Multi-Object Tracking. OC-SORT is simple, online and robust to occlusion/non-linear motion.  | 
 ### Installation 
 ```bash
 git clone https://github.com/kadirnar/TrackerHub
