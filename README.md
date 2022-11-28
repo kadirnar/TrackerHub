@@ -11,14 +11,14 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
 <table bordercolor="#66b2b2">
   <tr>
     <td width="25%" valign="top">
-      <h3>OCSORT </h3>
+      <h3>OcSort </h3>
         <a target="_blank" href="docs/oc_sort">
             <img src="docs/oc_sort/ocsort_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
         </a>
         <p>Observation-Centric SORT on video Multi-Object Tracking</p>
     </td>
     <td width="25%" valign="top">
-      <h3>BYTETRACK </h3>
+      <h3>ByteTrack </h3>
         <a target="_blank" href="docs/byte_sort">
             <img src="docs/byte_track/bytetrack_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
         </a>
