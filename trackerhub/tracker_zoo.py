@@ -3,12 +3,14 @@ from typing import Optional
 from bytetracker.byte_tracker import BYTETracker
 from norfair_tracker.norfair import NorFairTracker
 from ocsort.ocsort import OCSort
+from sort.tracker import SortTracker
 
 from trackerhub.utils.config_utils import get_config
 
 DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/configs/byte_track.yaml"
 DEFAULT_OCSORT_CONFIG_PATH = "trackerhub/configs/oc_sort.yaml"
 DEFAULT_NORFAIR_CONFIG_PATH = "trackerhub/configs/norfair_track.yaml"
+DEFAULT_SORT_CONFIG_PATH = "trackerhub/configs/sort_track.yaml"
 
 
 def create_tracker(
@@ -70,6 +72,20 @@ def create_tracker(
             reid_hit_counter_max=config.NORFAIR_TRACK.REID_HIT_COUNTER_MAX,
         )
         return norfair_tracker
+
+    elif tracker_type == "SORT_TRACK":
+        if tracker_config_path is None:
+            config_path = DEFAULT_SORT_CONFIG_PATH
+        else:
+            config_path = tracker_config_path
+
+        config = get_config(config_path)
+        sort_tracker = SortTracker(
+            max_age=config.SORT_TRACK.MAX_AGE,
+            min_hits=config.SORT_TRACK.MIN_HITS,
+            iou_threshold=iou_th,
+        )
+        return sort_tracker
 
     else:
         raise ValueError(f"No such tracker: {tracker_type}")
