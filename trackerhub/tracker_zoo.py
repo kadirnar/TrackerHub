@@ -6,9 +6,9 @@ from ocsort.ocsort import OCSort
 
 from trackerhub.utils.config_utils import get_config
 
-DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/trackers/bytetrack/config/byte_track.yaml"
-DEFAULT_OCSORT_CONFIG_PATH = "trackerhub/trackers/ocsort/config/oc_sort.yaml"
-DEFAULT_NORFAIR_CONFIG_PATH = "trackerhub/trackers/ocsort/config/norfair.yaml"
+DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/configs/byte_track.yaml"
+DEFAULT_OCSORT_CONFIG_PATH = "trackerhub/configs/oc_sort.yaml"
+DEFAULT_NORFAIR_CONFIG_PATH = "trackerhub/configs/norfair_track.yaml"
 
 
 def create_tracker(
