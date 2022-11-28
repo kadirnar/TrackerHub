@@ -1,6 +1,8 @@
 bytetracker==0.2.4
 easydict==1.10
+norfair_tracker==0.0.4
 ocsort==0.0.2
 opencv_python==4.6.0.66
 PyYAML==6.0
+sort_track==0.0.8
 yolov5==6.2.3
