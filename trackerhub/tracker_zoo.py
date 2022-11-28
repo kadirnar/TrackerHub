@@ -1,12 +1,14 @@
 from typing import Optional
 
 from bytetracker.byte_tracker import BYTETracker
+from norfair_tracker.norfair import NorFairTracker
 from ocsort.ocsort import OCSort
 
 from trackerhub.utils.config_utils import get_config
 
-DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/trackers/bytetrack/config/byte_track.yaml"
-DEFAULT_OCSORT_CONFIG_PATH = "trackerhub/trackers/ocsort/config/oc_sort.yaml"
+DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/configs/byte_track.yaml"
+DEFAULT_OCSORT_CONFIG_PATH = "trackerhub/configs/oc_sort.yaml"
+DEFAULT_NORFAIR_CONFIG_PATH = "trackerhub/configs/norfair_track.yaml"
 
 
 def create_tracker(
@@ -48,6 +50,26 @@ def create_tracker(
             frame_rate=config.BYTE_TRACK.FRAME_RATE,
         )
         return byte_tracker
+
+    elif tracker_type == "NORFAIR_TRACK":
+        if tracker_config_path is None:
+            config_path = DEFAULT_NORFAIR_CONFIG_PATH
+        else:
+            config_path = tracker_config_path
+
+        config = get_config(config_path)
+        norfair_tracker = NorFairTracker(
+            distance_function=config.NORFAIR_TRACK.DISTANCE_FUNCTION,
+            distance_threshold=config.NORFAIR_TRACK.DISTANCE_THRESHOLD,
+            hit_counter_max=config.NORFAIR_TRACK.HIT_COUNTER_MAX,
+            initialization_delay=config.NORFAIR_TRACK.INITIALIZATION_DELAY,
+            pointwise_hit_counter_max=config.NORFAIR_TRACK.POINTWISE_HIT_COUNTER_MAX,
+            detection_threshold=config.NORFAIR_TRACK.DETECTION_THRESHOLD,
+            past_detections_length=config.NORFAIR_TRACK.PAST_DETECTIONS_LENGTH,
+            reid_distance_threshold=config.NORFAIR_TRACK.REID_DISTANCE_THRESHOLD,
+            reid_hit_counter_max=config.NORFAIR_TRACK.REID_HIT_COUNTER_MAX,
+        )
+        return norfair_tracker
 
     else:
         raise ValueError(f"No such tracker: {tracker_type}")
