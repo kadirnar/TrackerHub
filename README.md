@@ -26,8 +26,6 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
     </td>
   </tr>
 </table>
-
-
 <table bordercolor="#66b2b2">
   <tr>
     <td width="50%" valign="top">
@@ -46,6 +44,7 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
     </td>
   </tr>
 </table>
+
 ### Installation 
 ```bash
 git clone https://github.com/kadirnar/TrackerHub
