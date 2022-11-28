@@ -10,28 +10,34 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
 ### Tracker Algorithms
 <table bordercolor="#66b2b2">
   <tr>
-    <td width="25%" valign="top">
+    <td width="50%" valign="top">
       <h3>OcSort </h3>
         <a target="_blank" href="docs/oc_sort">
             <img src="docs/oc_sort/ocsort_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
         </a>
         <p>Observation-Centric SORT on video Multi-Object Tracking</p>
     </td>
-    <td width="25%" valign="top">
+    <td width="50%" valign="top">
       <h3>ByteTrack </h3>
         <a target="_blank" href="docs/byte_sort">
             <img src="docs/byte_track/bytetrack_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
         </a>
         <p>Multi-Object Tracking by Associating Every Detection Box</p>
     </td>
-    <td width="25%" valign="top">
+  </tr>
+</table>
+
+
+<table bordercolor="#66b2b2">
+  <tr>
+    <td width="50%" valign="top">
       <h3>NorFair </h3>
         <a target="_blank" href="docs/norfair_track">
             <img src="docs/norfair_track/norfair_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
         </a>
         <p>Norfair is a customizable lightweight Python library for real-time multi-object tracking.</p>
     </td>
-    <td width="25%" valign="top">
+    <td width="50%" valign="top">
       <h3>Sort </h3>
         <a target="_blank" href="docs/sort_track">
             <img src="docs/sort_track/sort_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
@@ -40,7 +46,6 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
     </td>
   </tr>
 </table>
-
 ### Installation 
 ```bash
 git clone https://github.com/kadirnar/TrackerHub
