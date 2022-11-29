@@ -4,7 +4,7 @@
 </h1>
 </div>
 
-This repo is a real-time multi-object tracking library based on [PyTorch](https://pytorch.org/). Yolov5 is used for object detection and [ByteTrack](https://github.com/ifzhang/ByteTrack), [OcSort](https://github.com/noahcao/OC_SORT) and [NorFair](https://github.com/tryolabs/norfair) are used for object tracking. The library is designed to be easy to use and easy to extend. It is also easy to integrate with other object detection and tracking libraries.
+This repo is a real-time multi-object tracking library based on [PyTorch](https://pytorch.org/). Yolov5 is used for object detection and [ByteTrack](https://github.com/ifzhang/ByteTrack), [OcSort](https://github.com/noahcao/OC_SORT) [StrongSort](https://github.com/dyhBUPT/StrongSORT) and [NorFair](https://github.com/tryolabs/norfair) are used for object tracking. The library is designed to be easy to use and easy to extend. It is also easy to integrate with other object detection and tracking libraries.
 
 
 ### Tracker Algorithms
@@ -44,6 +44,17 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
     </td>
   </tr>
 </table>
+<table bordercolor="#66b2b2">
+  <tr>
+    <td width="100%" valign="top">
+      <h3>StrongSort </h3>
+        <a target="_blank" href="docs/strongsort">
+            <img src="docs/strongsort/strongsort_demo.gif" width="100%" alt="https://github.com/kadirnar/TrackerHub"/>
+        </a>
+        <p>StrongSort: Make DeepSORT Great Again</p>
+    </td>
+  </tr>
+</table>
 
 ### Installation 
 ```bash
@@ -69,6 +80,14 @@ bash scripts/code_format.sh
   title={ByteTrack: Multi-Object Tracking by Associating Every Detection Box},
   author={Zhang, Yifu and Sun, Peize and Jiang, Yi and Yu, Dongdong and Weng, Fucheng and Yuan, Zehuan and Luo, Ping and Liu, Wenyu and Wang, Xinggang},
   booktitle={Proceedings of the European Conference on Computer Vision (ECCV)},
+  year={2022}
+}
+```
+```bibtex
+@article{du2022strongsort,
+  title={Strongsort: Make deepsort great again},
+  author={Du, Yunhao and Song, Yang and Yang, Bo and Zhao, Yanyun},
+  journal={arXiv preprint arXiv:2202.13514},
   year={2022}
 }
 ```

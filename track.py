@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import cv2
 
@@ -37,7 +38,10 @@ def load_tracker_model(config_path: str) -> object:
     config = get_config(config_path)
     tracker_module = create_tracker(
         tracker_type=config.TRACKER_CONFIG.TRACKER_TYPE,
+        tracker_weight_path=Path(config.TRACKER_CONFIG.WEIGHT_PATH),
         tracker_config_path=config.TRACKER_CONFIG.CONFIG_PATH,
+        device=config.DETECTOR_CONFIG.DEVICE,
+        half=config.DETECTOR_CONFIG.HALF,
         conf_th=config.DETECTOR_CONFIG.CONF_TH,
         iou_th=config.DETECTOR_CONFIG.IOU_TH,
     )
