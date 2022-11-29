@@ -1,9 +1,12 @@
 TRACKER_CONFIG:
     # The name of the tracker
-    TRACKER_TYPE: SORT_TRACK
+    TRACKER_TYPE: STRONG_SORT
     # The path of the config file
-    CONFIG_PATH: trackerhub/configs/sort_track.yaml
- 
+    CONFIG_PATH: trackerhub/configs/strong_sort.yaml
+    # The path of the model file
+    WEIGHT_PATH: osnet_x1_0_msmt17.pt
+
+
 DETECTOR_CONFIG:
   # The threshold for the IOU score
   IOU_TH: 0.45
@@ -15,6 +18,8 @@ DETECTOR_CONFIG:
   WEIGHT_PATH: /home/kadir/Desktop/AI/open_source/data/weights/yolov5l6.pt
   # The device to run the detector
   DEVICE: cuda:0
+  # F16 precision
+  HALF: False
 
 VIDEO_CONFIG:
   # The path of the input video

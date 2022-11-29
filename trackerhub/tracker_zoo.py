@@ -4,18 +4,23 @@ from bytetracker.byte_tracker import BYTETracker
 from norfair_tracker.norfair import NorFairTracker
 from ocsort.ocsort import OCSort
 from sort.tracker import SortTracker
+from strongsort.strong_sort import StrongSORT
 
 from trackerhub.utils.config_utils import get_config
 
 DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/configs/byte_track.yaml"
 DEFAULT_OCSORT_CONFIG_PATH = "trackerhub/configs/oc_sort.yaml"
 DEFAULT_NORFAIR_CONFIG_PATH = "trackerhub/configs/norfair_track.yaml"
+DEFAULT_STRONGSORT_CONFIG_PATH = "trackerhub/configs/strong_sort.yaml"
 DEFAULT_SORT_CONFIG_PATH = "trackerhub/configs/sort_track.yaml"
 
 
 def create_tracker(
     tracker_type,
     tracker_config_path,
+    tracker_weight_path: Optional[str] = None,
+    device: Optional[str] = "cpu",
+    half: Optional[bool] = False,
     conf_th: Optional[str] = 0.05,
     iou_th: Optional[str] = 0.05,
 ) -> object:
@@ -86,6 +91,27 @@ def create_tracker(
             iou_threshold=iou_th,
         )
         return sort_tracker
+
+    elif tracker_type == "STRONG_SORT":
+        if tracker_config_path is None:
+            config_path = DEFAULT_STRONGSORT_CONFIG_PATH
+        else:
+            config_path = tracker_config_path
+
+        config = get_config(config_path)
+        strong_sort = StrongSORT(
+            tracker_weight_path,
+            device,
+            half,
+            max_dist=config.STRONG_SORT.MAX_DIST,
+            max_iou_distance=config.STRONG_SORT.MAX_IOU_DISTANCE,
+            max_age=config.STRONG_SORT.MAX_AGE,
+            n_init=config.STRONG_SORT.N_INIT,
+            nn_budget=config.STRONG_SORT.NN_BUDGET,
+            mc_lambda=config.STRONG_SORT.MC_LAMBDA,
+            ema_alpha=config.STRONG_SORT.EMA_ALPHA,
+        )
+        return strong_sort
 
     else:
         raise ValueError(f"No such tracker: {tracker_type}")
