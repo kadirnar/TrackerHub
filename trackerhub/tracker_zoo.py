@@ -1,11 +1,5 @@
 from typing import Optional
 
-from bytetracker.byte_tracker import BYTETracker
-from norfair_tracker.norfair import NorFairTracker
-from ocsort.ocsort import OCSort
-from sort.tracker import SortTracker
-from strongsort.strong_sort import StrongSORT
-
 from trackerhub.utils.config_utils import get_config
 
 DEFAULT_BYTETRACK_CONFIG_PATH = "trackerhub/configs/byte_track.yaml"
@@ -25,6 +19,8 @@ def create_tracker(
     iou_th: Optional[str] = 0.05,
 ) -> object:
     if tracker_type == "OC_SORT":
+        from ocsort.ocsort import OCSort
+
         if tracker_config_path is None:
             config_path = DEFAULT_OCSORT_CONFIG_PATH
         else:
@@ -44,6 +40,8 @@ def create_tracker(
         return oc_sort
 
     elif tracker_type == "BYTE_TRACK":
+        from bytetracker.byte_tracker import BYTETracker
+
         if tracker_config_path is None:
             config_path = DEFAULT_BYTETRACK_CONFIG_PATH
         else:
@@ -59,6 +57,8 @@ def create_tracker(
         return byte_tracker
 
     elif tracker_type == "NORFAIR_TRACK":
+        from norfair_tracker.norfair import NorFairTracker
+
         if tracker_config_path is None:
             config_path = DEFAULT_NORFAIR_CONFIG_PATH
         else:
@@ -79,6 +79,8 @@ def create_tracker(
         return norfair_tracker
 
     elif tracker_type == "SORT_TRACK":
+        from sort.tracker import SortTracker
+
         if tracker_config_path is None:
             config_path = DEFAULT_SORT_CONFIG_PATH
         else:
@@ -93,6 +95,8 @@ def create_tracker(
         return sort_tracker
 
     elif tracker_type == "STRONG_SORT":
+        from strongsort.strong_sort import StrongSORT
+
         if tracker_config_path is None:
             config_path = DEFAULT_STRONGSORT_CONFIG_PATH
         else:
