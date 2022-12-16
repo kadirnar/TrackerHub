@@ -22,17 +22,18 @@ def load_detector_model(config_path: str) -> object:
     """
 
     config = get_config(config_path)
-    if config.DETECTOR_CONFIG.MODEL_TYPE == "yolov5":
+    if config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov5":
         import yolov5
+
         model = yolov5.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
         model.iou = config.DETECTOR_CONFIG.IOU_TH
         model.conf = config.DETECTOR_CONFIG.CONF_TH
-    elif config.DETECTOR_CONFIG.MODEL_TYPE == "yolov7":
+    elif config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov7":
         import yolov7
+
         model = yolov7.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
-        model.iou = config.DETECTOR_CONFIG.IOU_TH
         model.conf = config.DETECTOR_CONFIG.CONF_TH
-        
+
     return model
 
 
