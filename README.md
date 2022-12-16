@@ -4,7 +4,7 @@
 </h1>
 </div>
 
-This repo is a real-time multi-object tracking library based on [PyTorch](https://pytorch.org/). Yolov5 is used for object detection and [ByteTrack](https://github.com/ifzhang/ByteTrack), [OcSort](https://github.com/noahcao/OC_SORT) [StrongSort](https://github.com/dyhBUPT/StrongSORT) and [NorFair](https://github.com/tryolabs/norfair) are used for object tracking. The library is designed to be easy to use and easy to extend. It is also easy to integrate with other object detection and tracking libraries.
+This repo is a real-time multi-object tracking library based on [PyTorch](https://pytorch.org/). Yolov5 and Yolov7 is used for object detection and [ByteTrack](https://github.com/ifzhang/ByteTrack), [OcSort](https://github.com/noahcao/OC_SORT) [StrongSort](https://github.com/dyhBUPT/StrongSORT) and [NorFair](https://github.com/tryolabs/norfair) are used for object tracking. The library is designed to be easy to use and easy to extend. It is also easy to integrate with other object detection and tracking libraries.
 
 
 ### Tracker Algorithms

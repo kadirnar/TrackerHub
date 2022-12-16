@@ -5,5 +5,6 @@ ocsort==0.0.2
 opencv_python==4.6.0.66
 PyYAML==6.0
 sort_track==0.0.8
-yolov5==6.2.3
+yolov5
 strongsort==0.2.0
+yolov7==0.1.8
