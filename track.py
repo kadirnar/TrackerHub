@@ -20,12 +20,19 @@ def load_detector_model(config_path: str) -> object:
     """
     This function is used to load yolov5 model.
     """
-    import yolov5
 
     config = get_config(config_path)
-    model = yolov5.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
-    model.iou = config.DETECTOR_CONFIG.IOU_TH
-    model.conf = config.DETECTOR_CONFIG.CONF_TH
+    if config.DETECTOR_CONFIG.MODEL_TYPE == "yolov5":
+        import yolov5
+        model = yolov5.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
+        model.iou = config.DETECTOR_CONFIG.IOU_TH
+        model.conf = config.DETECTOR_CONFIG.CONF_TH
+    elif config.DETECTOR_CONFIG.MODEL_TYPE == "yolov7":
+        import yolov7
+        model = yolov7.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
+        model.iou = config.DETECTOR_CONFIG.IOU_TH
+        model.conf = config.DETECTOR_CONFIG.CONF_TH
+        
     return model
 
 

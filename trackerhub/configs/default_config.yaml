@@ -8,6 +8,8 @@ TRACKER_CONFIG:
 
 
 DETECTOR_CONFIG:
+  # The name of the detector
+  DETECTOR_TYPE: yolov5 # yolov7
   # The threshold for the IOU score
   IOU_TH: 0.45
   # The threshold for the confidence score
