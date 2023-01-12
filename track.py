@@ -13,7 +13,8 @@ os.environ["NUMEXPR_NUM_THREADS"] = "1"
 from trackerhub.tracker_zoo import create_tracker
 from trackerhub.utils.config_utils import get_config
 from trackerhub.utils.video_utils import create_video_writer
-from trackerhub.utils.vis import tracker_vis
+from trackerhub.utils.track_vis import video_vis
+from torchyolo import YoloHub
 
 
 def load_detector_model(config_path: str) -> object:
@@ -22,19 +23,14 @@ def load_detector_model(config_path: str) -> object:
     """
 
     config = get_config(config_path)
-    if config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov5":
-        import yolov5
-
-        model = yolov5.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
-        model.iou = config.DETECTOR_CONFIG.IOU_TH
-        model.conf = config.DETECTOR_CONFIG.CONF_TH
-    elif config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov7":
-        import yolov7
-
-        model = yolov7.load(model_path=config.DETECTOR_CONFIG.WEIGHT_PATH, device=config.DETECTOR_CONFIG.DEVICE)
-        model.conf = config.DETECTOR_CONFIG.CONF_TH
-
-    return model
+    model = YoloHub(
+        model_type=config.DETECTOR_CONFIG.DETECTOR_TYPE,
+        model_path=config.DETECTOR_CONFIG.WEIGHT_PATH,
+        device=config.DETECTOR_CONFIG.DEVICE,
+        image_size=config.DETECTOR_CONFIG.IMAGE_SIZE,
+    ).load_model()
+    model.save = False  
+    return model.model
 
 
 def load_tracker_model(config_path: str) -> object:
@@ -70,9 +66,13 @@ def track_objects(config_path):
     while True:
         frame_is_returned, frame = video_capture.read()
         if frame_is_returned:
-            prediction_result = model(frame, size=config.DETECTOR_CONFIG.IMAGE_SIZE)
-            for image_id, result in enumerate(prediction_result.pred):
-                tracker_outputs[image_id] = tracker_module.update(result.cpu(), frame)
+            prediction_result = model.predict(config.VIDEO_CONFIG.INPUT_PATH)
+            for image_id, result in enumerate(prediction_result):
+                if config.DETECTOR_CONFIG.DETECTOR_TYPE == 'yolov8':
+                    tracker_outputs[image_id] = tracker_module.update(result['det'], frame)
+                else:
+                    tracker_outputs[image_id] = tracker_module.update(result.cpu(), frame)
+                    
                 for output in tracker_outputs[image_id]:
                     tracker_box, track_id, track_category_id, tracker_score = (
                         output[:4],
@@ -80,9 +80,9 @@ def track_objects(config_path):
                         output[5],
                         output[6],
                     )
-                    track_category_name = model.names[int(track_category_id)]
+                    track_category_name = model.model.names[int(track_category_id)]
                     box_labels = f"Id:{track_id} {track_category_name} {float(tracker_score):.2f}"
-                    tracker_vis(
+                    video_vis(
                         track_id=track_id,
                         label=box_labels,
                         frame=frame,
