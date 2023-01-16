@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import cv2
+from tqdm import tqdm
 
 # limit the number of cpus used by high performance libraries
 os.environ["OMP_NUM_THREADS"] = "1"
@@ -16,7 +17,7 @@ from trackerhub.tracker_zoo import create_tracker
 from trackerhub.utils.config_utils import get_config
 from trackerhub.utils.track_vis import video_vis
 from trackerhub.utils.video_utils import create_video_writer
-
+from trackerhub.utils.dataset import LoadData
 
 def load_detector_model(config_path: str) -> object:
     """
@@ -64,44 +65,38 @@ def track_objects(config_path):
         video_output_path = config.VIDEO_CONFIG.OUTPUT_PATH
         video_writer = create_video_writer(video_input_path, video_output_path)
 
-    video_capture = cv2.VideoCapture(config.VIDEO_CONFIG.INPUT_PATH)
     tracker_outputs = [None]
-    while True:
-        frame_is_returned, frame = video_capture.read()
-        if frame_is_returned:
-            prediction_result = model.predict(
-               frame, tracker=True, yaml_file="trackerhub/configs/yolov6/coco.yaml"
+     
+    files = LoadData(config.VIDEO_CONFIG.INPUT_PATH)
+    for frame, img_path, vid_cap in tqdm(files):
+        prediction_result = model.predict(
+            frame, tracker=True, yaml_file="trackerhub/configs/yolov6/coco.yaml"
             )
-            for image_id, result in enumerate(prediction_result.pred):
-                if config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov8":
-                    tracker_outputs[image_id] = tracker_module.update(result["det"], frame)
-                else:
-                    tracker_outputs[image_id] = tracker_module.update(result.cpu(), frame)
+        for image_id, result in enumerate(prediction_result.pred):
+            if config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov8":
+                tracker_outputs[image_id] = tracker_module.update(result["det"], frame)
+            else:
+                tracker_outputs[image_id] = tracker_module.update(result.cpu(), frame)
 
-                for output in tracker_outputs[image_id]:
-                    tracker_box, track_id, track_category_id, tracker_score = (
-                        output[:4],
-                        int(output[4]),
-                        output[5],
-                        output[6],
-                    )
-                    track_category_name = model.model.names[int(track_category_id)]
-                    box_labels = f"Id:{track_id} {track_category_name} {float(tracker_score):.2f}"
-                    video_vis(
-                        track_id=track_id,
-                        label=box_labels,
-                        frame=frame,
-                        tracker_box=tracker_box,
-                    )
-            if config.VIDEO_CONFIG.SAVE_VIDEO:
-                video_writer.write(frame)
-            if config.VIDEO_CONFIG.SHOW_VIDEO:
-                cv2.imshow("frame", frame)
-                if cv2.waitKey(1) & 0xFF == ord("q"):
-                    break
-        else:
-            break
-    video_capture.release()
+            for output in tracker_outputs[image_id]:
+                tracker_box, track_id, track_category_id, tracker_score = (
+                    output[:4],
+                    int(output[4]),
+                    output[5],
+                    output[6],
+                )
+                track_category_name = model.model.names[int(track_category_id)]
+                box_labels = f"Id:{track_id} {track_category_name} {float(tracker_score):.2f}"
+                video_vis(
+                    track_id=track_id,
+                    label=box_labels,
+                    frame=frame,
+                    tracker_box=tracker_box,
+                )
+        if config.VIDEO_CONFIG.SAVE_VIDEO:
+            video_writer.write(frame)
+            
+    vid_cap.release()
 
 
 def parse_arguments():

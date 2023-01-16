@@ -25,10 +25,8 @@ DETECTOR_CONFIG:
 
 VIDEO_CONFIG:
   # The path of the input video
-  INPUT_PATH: test.mp4
+  INPUT_PATH: ../test.mp4
   # The path of the output video
   OUTPUT_PATH: Results
-  # Show the video
-  SHOW_VIDEO: False 
   # Save the video
   SAVE_VIDEO: True 
