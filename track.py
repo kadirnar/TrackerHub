@@ -10,11 +10,12 @@ os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
 os.environ["NUMEXPR_NUM_THREADS"] = "1"
 
+from torchyolo import YoloHub
+
 from trackerhub.tracker_zoo import create_tracker
 from trackerhub.utils.config_utils import get_config
-from trackerhub.utils.video_utils import create_video_writer
 from trackerhub.utils.track_vis import video_vis
-from torchyolo import YoloHub
+from trackerhub.utils.video_utils import create_video_writer
 
 
 def load_detector_model(config_path: str) -> object:
@@ -29,8 +30,10 @@ def load_detector_model(config_path: str) -> object:
         device=config.DETECTOR_CONFIG.DEVICE,
         image_size=config.DETECTOR_CONFIG.IMAGE_SIZE,
     ).load_model()
-    model.save = False  
-    return model.model
+
+    model.model.font_path = "trackerhub/configs/yolov6/Arial.ttf"
+    model.model.save = False
+    return model
 
 
 def load_tracker_model(config_path: str) -> object:
@@ -66,13 +69,15 @@ def track_objects(config_path):
     while True:
         frame_is_returned, frame = video_capture.read()
         if frame_is_returned:
-            prediction_result = model.predict(config.VIDEO_CONFIG.INPUT_PATH)
-            for image_id, result in enumerate(prediction_result):
-                if config.DETECTOR_CONFIG.DETECTOR_TYPE == 'yolov8':
-                    tracker_outputs[image_id] = tracker_module.update(result['det'], frame)
+            prediction_result = model.predict(
+               frame, tracker=True, yaml_file="trackerhub/configs/yolov6/coco.yaml"
+            )
+            for image_id, result in enumerate(prediction_result.pred):
+                if config.DETECTOR_CONFIG.DETECTOR_TYPE == "yolov8":
+                    tracker_outputs[image_id] = tracker_module.update(result["det"], frame)
                 else:
                     tracker_outputs[image_id] = tracker_module.update(result.cpu(), frame)
-                    
+
                 for output in tracker_outputs[image_id]:
                     tracker_box, track_id, track_category_id, tracker_score = (
                         output[:4],
