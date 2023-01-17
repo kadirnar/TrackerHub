@@ -16,10 +16,46 @@ pip install trackerhub
 ```
 
 ## Usage
+
 ```python
 from trackerhub.track import track_objects
 
 track_objects("trackerhub/configs/default_config.yaml")
+```
+#### Config file
+```yaml
+TRACKER_CONFIG:
+    # The name of the tracker
+    TRACKER_TYPE: NORFAIR_TRACK
+    # The path of the config file
+    CONFIG_PATH: trackerhub/configs/norfair_track.yaml
+    # The path of the model file
+    WEIGHT_PATH: osnet_x1_0_msmt17.pt
+
+
+DETECTOR_CONFIG:
+  # The name of the detector
+  DETECTOR_TYPE: yolov5 # yolov7
+  # The threshold for the IOU score
+  IOU_TH: 0.45
+  # The threshold for the confidence score
+  CONF_TH: 0.25
+  # The size of the image
+  IMAGE_SIZE: 640
+  # The path of the weight file
+  WEIGHT_PATH: yolov5n.pt
+  # The device to run the detector
+  DEVICE: cuda:0
+  # F16 precision
+  HALF: False
+
+VIDEO_CONFIG:
+  # The path of the input video
+  INPUT_PATH: ../test.mp4
+  # The path of the output video
+  OUTPUT_PATH: Results
+  # Save the video
+  SAVE_VIDEO: True 
 ```
 
 ## Code Formatter
