@@ -10,7 +10,7 @@
 This repo is a real-time multi-object tracking library based on [PyTorch](https://pytorch.org/). [Yolov5](https://github.com/ultralytics/yolov5) and [Yolov7](https://github.com/WongKinYiu/yolov7) is used for object detection and [ByteTrack](https://github.com/ifzhang/ByteTrack), [OcSort](https://github.com/noahcao/OC_SORT) [StrongSort](https://github.com/dyhBUPT/StrongSORT) and [NorFair](https://github.com/tryolabs/norfair) are used for object tracking. The library is designed to be easy to use and easy to extend. It is also easy to integrate with other object detection and tracking libraries.
 
 
-### Installation 
+## Installation 
 ```bash
 pip install trackerhub
 ```
@@ -22,11 +22,11 @@ from trackerhub.track import track_objects
 track_objects("trackerhub/configs/default_config.yaml")
 ```
 
-### Code Formatter
+## Code Formatter
 ```bash
 bash scripts/code_format.sh
 ```
-### Citation
+## Citation
 ```bibtex
 @article{cao2022observation,
   title={Observation-Centric SORT: Rethinking SORT for Robust Multi-Object Tracking},
