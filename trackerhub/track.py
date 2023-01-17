@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-import cv2
 from tqdm import tqdm
 
 # limit the number of cpus used by high performance libraries
