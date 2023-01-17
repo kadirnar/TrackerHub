@@ -12,10 +12,16 @@ This repo is a real-time multi-object tracking library based on [PyTorch](https:
 
 ### Installation 
 ```bash
-git clone https://github.com/kadirnar/TrackerHub
-cd TrackerHub
-pip install -r requirements.txt
+pip install trackerhub
 ```
+
+## Usage
+```python
+from trackerhub.track import track_objects
+
+track_objects("trackerhub/configs/default_config.yaml")
+```
+
 ### Code Formatter
 ```bash
 bash scripts/code_format.sh
